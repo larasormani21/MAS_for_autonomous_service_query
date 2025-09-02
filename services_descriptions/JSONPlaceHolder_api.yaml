@@ -1,0 +1,52 @@
+openapi: 3.0.0
+info:
+  title: JSONPlaceholder API
+  description: Fake REST API. It has different endpoints that give us fake posts, todos, comments etc.
+  version: 1.0.0
+servers:
+- url: https://jsonplaceholder.typicode.com
+paths:
+  /posts:
+    get:
+      summary: Get all posts
+      responses:
+        '200':
+          description: A list of posts
+    post:
+      summary: Create a new post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        '201':
+          description: Post created
+  /posts/{id}:
+    get:
+      summary: Get a post by ID
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A single post
+        '404':
+          description: Post not found
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        userId:
+          type: integer
+        id:
+          type: integer
+        title:
+          type: string
+        body:
+          type: string
